@@ -56,7 +56,7 @@ public class CredentialsManager @VisibleForTesting(otherwise = VisibleForTesting
      * @param callback the callback that will receive a valid [Credentials] or the [CredentialsManagerException].
      */
     override fun getCredentials(callback: Callback<Credentials, CredentialsManagerException>) {
-        getCredentials(null, 0, callback)
+        getCredentials(null, 0, null, callback)
     }
 
     /**
@@ -71,6 +71,7 @@ public class CredentialsManager @VisibleForTesting(otherwise = VisibleForTesting
     override fun getCredentials(
         scope: String?,
         minTtl: Int,
+        parameters: Map<String, Any?>?,
         callback: Callback<Credentials, CredentialsManagerException>
     ) {
         val accessToken = storage.retrieveString(KEY_ACCESS_TOKEN)
@@ -110,6 +111,11 @@ public class CredentialsManager @VisibleForTesting(otherwise = VisibleForTesting
             return
         }
         val request = authenticationClient.renewAuth(refreshToken)
+
+        parameters?.forEach {
+            request.addParameter(it.key, it.value.toString())
+        }
+
         if (scope != null) {
             request.addParameter("scope", scope)
         }

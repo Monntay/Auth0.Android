@@ -182,7 +182,7 @@ public class SecureCredentialsManager @VisibleForTesting(otherwise = VisibleForT
      * @param callback the callback to receive the result in.
      */
     override fun getCredentials(callback: Callback<Credentials, CredentialsManagerException>) {
-        getCredentials(null, 0, callback)
+        getCredentials(null, 0, null, callback)
     }
 
     /**
@@ -202,6 +202,7 @@ public class SecureCredentialsManager @VisibleForTesting(otherwise = VisibleForT
     override fun getCredentials(
         scope: String?,
         minTtl: Int,
+        parameters: Map<String, Any?>?,
         callback: Callback<Credentials, CredentialsManagerException>
     ) {
         if (!hasValidCredentials(minTtl.toLong())) {

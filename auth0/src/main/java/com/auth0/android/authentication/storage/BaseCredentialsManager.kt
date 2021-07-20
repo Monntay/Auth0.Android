@@ -35,6 +35,7 @@ public abstract class BaseCredentialsManager internal constructor(
     public abstract fun getCredentials(
         scope: String?,
         minTtl: Int,
+        parameters: Map<String, Any?>?,
         callback: Callback<Credentials, CredentialsManagerException>
     )
 
