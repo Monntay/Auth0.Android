@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+yes | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;30.0.3"
+
 #
 # Copyright 2015 the original author or authors.
 #
